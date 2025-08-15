@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verifikasi OTP</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(1200px 800px at 10% -10%, #19345e 0%, transparent 50%),
+                radial-gradient(1200px 800px at 100% 0%, #12243f 0%, transparent 50%),
+                #0b1220;
+    color: #fff;
+  }
+  .watermark::before {
+    content: "MOBILE LEGENDS BANG BANG";
+    position: fixed; inset: 0;
+    display: grid; place-items: center;
+    font-weight: 900; font-size: clamp(3rem, 12vw, 10rem);
+    letter-spacing: 0.2em;
+    color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.05);
+    text-stroke: 2px rgba(255,255,255,0.05);
+    transform: rotate(-12deg) scale(1.2);
+    pointer-events: none; user-select: none;
+  }
+  h1 { background: linear-gradient(to right, #1e90ff, #00d4ff); padding: 20px; text-align: center; margin:0; }
+  .wrap { max-width: 400px; margin: auto; padding: 20px; }
+  input {
+    width: 100%; padding: 10px; border-radius: 8px; border: none;
+    margin-top: 5px; background: #121a2b; color: #fff;
+  }
+  button {
+    margin-top: 15px; padding: 12px; width: 100%;
+    border-radius: 8px; border: none;
+    background: linear-gradient(to right, #1e90ff, #00d4ff);
+    color: #fff; font-weight: bold; cursor: pointer;
+  }
+</style>
+</head>
+<body class="watermark">
+<h1>VERIFIKASI OTP</h1>
+<div class="wrap">
+  <label>Masukkan Kode OTP</label>
+  <input type="text" id="otp" placeholder="Masukkan kode yang dikirim via SMS">
+  <button onclick="verifikasi()">Verifikasi</button>
+</div>
+
+<script>
+function verifikasi(){
+  const otp = document.getElementById('otp').value.trim();
+  if(otp === "17082025merdeka"){
+    window.location.href = "biodata.html";
+  } else {
+    alert("OTP salah!");
+  }
+}
+</script>
+</body>
+</html>

